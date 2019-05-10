@@ -117,39 +117,3 @@ setTimeout(() => window.onbeforeunload = () => {
 document.querySelector('#new-p').addEventListener('click', () => {
   document.querySelector('#new-p-f').style.display = 'block'
 })
-
-// debug and test ==============================================================
-//                                                                              debug and test
-let create_data_test_1 = () => {
-  data.push(
-    {
-      name: 'YouTube Movies',
-      top: 100,
-      left: 100,
-      content: [
-        'Up (6.3)',
-        'Wild Wild West (5.26)',
-        'Me Before You (6.8)',
-      ],
-      draggable: true,
-    }
-  )
-  show()
-}
-let create_data_test_2 = () => {
-  data.push(
-    {
-      name: 'Reminder 1',
-      top: 100,
-      left: 420,
-      content: [
-        'NPP notes',
-        'update SIO address',
-        'update Amazon billing addresses',
-        'email Penrose',
-      ],
-      draggable: false,
-    }
-  )
-  show()
-}
