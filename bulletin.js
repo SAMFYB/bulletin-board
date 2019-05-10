@@ -75,11 +75,16 @@ if (db.getItem('config') === null) db.setItem('config', JSON.stringify(init_conf
 if (db.getItem('data') === null) db.setItem('data', JSON.stringify(init_data))
 let config = JSON.parse(db.getItem('config'))
 let data = JSON.parse(db.getItem('data'))
+
 setTimeout(show, 1000)
 setTimeout(() => window.onbeforeunload = () => {
   db.setItem('config', JSON.stringify(config))
   db.setItem('data', JSON.stringify(data))
 }, 1000)
+
+document.querySelector('#new-p').addEventListener('click', () => {
+  console.log('new')
+})
 
 // debug and test ==============================================================
 //                                                                              debug and test
