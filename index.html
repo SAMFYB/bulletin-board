@@ -93,6 +93,7 @@ a:link, a:hover, a:active, a:visited {
     document.querySelector('#new-p-f-btn').addEventListener('click', (e) => {
       e.preventDefault()
       let v = document.querySelector('#new-p-f-in').value.trim()
+      if (v.length <= 0) return
       data.push({
         name: v,
         top: 0,
