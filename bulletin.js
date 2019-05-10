@@ -1,6 +1,7 @@
 let container = document.querySelector('#board')
 
 // data ========================================================================
+//                                                                              data
 let config = {
   default_width: 200,
   default_height: 200,
@@ -16,7 +17,8 @@ let data = [
 ]
 
 // routines ====================================================================
-let show = () => {
+//                                                                              routines
+let show = (callback) => {
   container.innerHTML = ''
   data.forEach(p => {
     let name = p.name
@@ -37,6 +39,7 @@ let show = () => {
         `</form></div>`
     }
     container.innerHTML += mk(name, top, left, width, height, content)
+    if (typeof callback === 'function') callback()
   })
 }
 let append = (p_name, text) => {
@@ -48,12 +51,15 @@ let append = (p_name, text) => {
 }
 
 // adjust style ================================================================
+//                                                                              adjust style
 container.style.height = window.innerHeight + 'px'
 
 // execute =====================================================================
+//                                                                              execute
 show()
 
 // debug and test ==============================================================
+//                                                                              debug and test
 let create_data_test_1 = () => {
   data.push(
     {
@@ -67,7 +73,7 @@ let create_data_test_1 = () => {
       ],
     }
   )
-  show().then(() => draggable(document.querySelector(`${name.replace(/ /g, '-')}-p`)))
+  show(() => draggable(document.querySelector(`#${'YouTube Movies'.replace(/ /g, '-')}-p`)))
 }
 let create_data_test_2 = () => {
   data.push(
