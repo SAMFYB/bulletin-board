@@ -70,6 +70,19 @@ a:link, a:hover, a:active, a:visited {
   color: white;
   margin-top: 10px;
 }
+#item-action {
+  display: none;
+  background-color: white;
+  min-width: 60px;
+  max-width: 280px;
+  min-height: 100px;
+  max-height: 200px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  font-size: 120%;
+  padding: 15px;
+}
 </style>
 </head>
 <body>
@@ -106,6 +119,8 @@ a:link, a:hover, a:active, a:visited {
       return show()
     })
   </script>
+
+  <div class='w3-modal w3-card-4' id='item-action'></div>
 
 </body>
 </html>

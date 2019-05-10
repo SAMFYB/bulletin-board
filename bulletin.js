@@ -39,10 +39,16 @@ let show = () => {
     let content = p.content
     let width = config.default_width
     let height = config.default_height
+    let j = (content) => {
+      let s = []
+      for (let i = 0; i < content.length; i++)
+        s.push(`<span id='item-${i}'>${content[i]}</span>`)
+      return s
+    }
     let mk = (name, top, left, width, height, content) => {
       return `<div class='bb-p w3-card-4 w3-padding' id='${name.replace(/ /g, '-')}-p' ` +
         `style='top: ${top}px; left: ${left}px; min-width: ${width}px; min-height: ${height}px;'>` +
-        `<div class='bb-p-h'><span>${name}</span></div>${content.join('<br>')}` +
+        `<div class='bb-p-h'><span>${name}</span></div>${j(content).join('<br>')}` +
         `<form onsubmit="data.forEach(p => { if (p.name === '${name}') default_action_a('${name}') }); return false" ` +
         `class='w3-container' style='padding: 0;'>` +
         `<input class='w3-input bb-p-a' type='text' ` +
@@ -55,6 +61,13 @@ let show = () => {
     if (p.draggable)
       show_callback_draggable(p.name)
   })
+  data.forEach(p => {
+    let name = p.name
+    let len = p.content.length
+    for (let i = 0; i < len; i++)
+      document.querySelector(`#${name.replace(/ /g, '-')}-p span#item-${i}`)
+        .addEventListener('click', () => item_action(name, i))
+  })
 }
 let append = (p_name, text) => {
   data.forEach(p => {
@@ -62,6 +75,16 @@ let append = (p_name, text) => {
       p.content.push(text)
     }
   })
+}
+let item_action = (name, i) => {
+  let modal = document.querySelector('#item-action')
+  let v = ''
+  data.forEach(p => {
+    if (p.name === name)
+      v = p.content[i]
+  })
+  modal.innerHTML = `<div><b>${name}</b><br>${v}</div>`
+  modal.style.display = 'block'
 }
 
 // adjust style ================================================================
