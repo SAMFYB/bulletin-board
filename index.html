@@ -41,18 +41,50 @@ a:link, a:hover, a:active, a:visited {
   height: 50px;
   position: fixed;
   top: 10px;
-  right: 10px;
+  left: 10px;
   background-color: #f76707;
 }
 #new-p:hover {
   background-color: black;
 }
+#new-p-f {
+  display: none;
+  background-color: white;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 300px;
+  height: 200px;
+  padding: 20px;
+}
+#new-p-f-in {
+  font-size: 150%;
+}
+#new-p-f-btn {
+  background-color: #f76707;
+  color: white;
+  margin-top: 30px;
+}
+#new-p-f-no {
+  background-color: #e03131;
+  color: white;
+  margin-top: 10px;
+}
 </style>
 </head>
 <body>
+
   <div id='board'></div>
   <div class='w3-card' id='new-p'></div>
+
   <script src='bulletin.js'></script>
   <script src='lib/draggable-div.js'></script>
+
+  <form class='w3-modal w3-card-4 w3-container' id='new-p-f'>
+    <input class='w3-input' id='new-p-f-in' type='text' autocomplete='off' placeholder='Name of New Note'>
+    <button class='w3-block w3-button w3-hover-black' id='new-p-f-btn' type='submit'><b>New</b></button>
+    <button class='w3-block w3-button w3-hover-black' id='new-p-f-no'><b>Cancel</b></button>
+  </form>
+
 </body>
 </html>

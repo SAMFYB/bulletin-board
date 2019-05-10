@@ -83,7 +83,7 @@ setTimeout(() => window.onbeforeunload = () => {
 }, 1000)
 
 document.querySelector('#new-p').addEventListener('click', () => {
-  console.log('new')
+  document.querySelector('#new-p-f').style.display = 'block'
 })
 
 // debug and test ==============================================================
