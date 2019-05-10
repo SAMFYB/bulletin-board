@@ -83,8 +83,17 @@ let item_action = (name, i) => {
     if (p.name === name)
       v = p.content[i]
   })
-  modal.innerHTML = `<div><b>${name}</b><br>${v}</div>`
   modal.style.display = 'block'
+  modal.innerHTML = `<div><b>${name}</b><br>${v}</div>` +
+    `<button class='w3-button w3-block w3-hover-black'>Delete</button>`
+  document.querySelector('#item-action button').addEventListener('click', () => {
+    modal.style.display = 'none'
+    data.forEach(p => {
+      if (p.name === name)
+        p.content.splice(i, 1)
+    })
+    return show()
+  })
 }
 
 // adjust style ================================================================
