@@ -15,7 +15,7 @@ let default_action_a = (name) => {
     show()
   }
 }
-let default_show_callback = (name) => {
+let show_callback_draggable = (name) => {
   draggable(document.querySelector(`#${name.replace(/ /g, '-')}-p`), () => {
     let ele = document.querySelector(`#${name.replace(/ /g, '-')}-p`)
     data.forEach(p => {
@@ -52,8 +52,8 @@ let show = () => {
     container.innerHTML += mk(name, top, left, width, height, content)
   })
   data.forEach(p => {
-    if (p.show_callback)
-      default_show_callback(p.name)
+    if (p.draggable)
+      show_callback_draggable(p.name)
   })
 }
 let append = (p_name, text) => {
@@ -94,7 +94,7 @@ let create_data_test_1 = () => {
         'Wild Wild West (5.26)',
         'Me Before You (6.8)',
       ],
-      show_callback: true,
+      draggable: true,
     }
   )
   show()
@@ -111,7 +111,7 @@ let create_data_test_2 = () => {
         'update Amazon billing addresses',
         'email Penrose',
       ],
-      show_callback: false,
+      draggable: false,
     }
   )
   show()
