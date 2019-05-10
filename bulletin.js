@@ -52,8 +52,8 @@ let show = () => {
     container.innerHTML += mk(name, top, left, width, height, content)
   })
   data.forEach(p => {
-    if (typeof p.show_callback === 'function')
-      p.show_callback()
+    if (p.show_callback)
+      default_show_callback(p.name)
   })
 }
 let append = (p_name, text) => {
@@ -75,6 +75,11 @@ if (db.getItem('config') === null) db.setItem('config', JSON.stringify(init_conf
 if (db.getItem('data') === null) db.setItem('data', JSON.stringify(init_data))
 let config = JSON.parse(db.getItem('config'))
 let data = JSON.parse(db.getItem('data'))
+setTimeout(show, 1000)
+setTimeout(() => window.onbeforeunload = () => {
+  db.setItem('config', JSON.stringify(config))
+  db.setItem('data', JSON.stringify(data))
+}, 1000)
 
 // debug and test ==============================================================
 //                                                                              debug and test
@@ -89,7 +94,7 @@ let create_data_test_1 = () => {
         'Wild Wild West (5.26)',
         'Me Before You (6.8)',
       ],
-      show_callback: () => default_show_callback('YouTube Movies'),
+      show_callback: true,
     }
   )
   show()
@@ -106,6 +111,7 @@ let create_data_test_2 = () => {
         'update Amazon billing addresses',
         'email Penrose',
       ],
+      show_callback: false,
     }
   )
   show()
