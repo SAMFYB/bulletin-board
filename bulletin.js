@@ -4,6 +4,13 @@ let container = document.querySelector('#board')
 let config = {
   default_width: 200,
   default_height: 200,
+  default_action_a: (name) => {
+    let v = document.querySelector(`#${name.replace(/ /g, '-')}-a`).value.trim()
+    if (v.length > 0) {
+      append(name, v)
+      show()
+    }
+  },
 }
 let data = [
   {
@@ -15,13 +22,17 @@ let data = [
       'Wild Wild West (5.26)',
       'Me Before You (6.8)',
     ],
-    action_a: (name) => {
-      let v = document.querySelector(`#${name.replace(/ /g, '-')}-a`).value.trim()
-      if (v.length > 0) {
-        append(name, v)
-        show()
-      }
-    }
+  },
+  {
+    name: 'Reminder 1',
+    top: 100,
+    left: 420,
+    content: [
+      'NPP notes',
+      'update SIO address',
+      'update Amazon billing addresses',
+      'email Penrose',
+    ],
   },
 ]
 
@@ -40,7 +51,7 @@ let show = () => {
       return `<div class='bb-p w3-card-4 w3-padding' ` +
         `style='top: ${top}px; left: ${left}px; min-width: ${width}px; min-height: ${height}px;'>` +
         `<div class='bb-p-h'><span>${name}</span></div>${content.join('<br>')}` +
-        `<form onsubmit="data.forEach(p => { if (p.name === '${name}') p.action_a('${name}') }); return false" ` +
+        `<form onsubmit="data.forEach(p => { if (p.name === '${name}') config.default_action_a('${name}') }); return false" ` +
         `class='w3-container' style='padding: 0;'>` +
         `<input class='w3-input bb-p-a' type='text' ` +
         `id='${name.replace(/ /g, '-')}-a' autocomplete='off' style='padding: 10px 0 0;'>` +
