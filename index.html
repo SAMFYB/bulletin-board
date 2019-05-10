@@ -15,7 +15,7 @@ a:link, a:hover, a:active, a:visited {
 #board {
   margin: 0;
   width: 100%;
-  background-color: #d8f5a2; /* debug */
+  background-color: #c5f6fa;
 }
 .bb-p {
   position: fixed;
@@ -37,8 +37,8 @@ a:link, a:hover, a:active, a:visited {
   border-bottom: 1px solid #ccc;
 }
 #new-p {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   position: fixed;
   top: 10px;
   left: 10px;
@@ -85,6 +85,26 @@ a:link, a:hover, a:active, a:visited {
     <button class='w3-block w3-button w3-hover-black' id='new-p-f-btn' type='submit'><b>New</b></button>
     <button class='w3-block w3-button w3-hover-black' id='new-p-f-no'><b>Cancel</b></button>
   </form>
+  <script>
+    document.querySelector('#new-p-f-no').addEventListener('click', (e) => {
+      e.preventDefault()
+      document.querySelector('#new-p-f').style.display = 'none'
+    })
+    document.querySelector('#new-p-f-btn').addEventListener('click', (e) => {
+      e.preventDefault()
+      let v = document.querySelector('#new-p-f-in').value.trim()
+      data.push({
+        name: v,
+        top: 0,
+        left: 0,
+        content: [],
+        draggable: true,
+      })
+      document.querySelector('#new-p-f').style.display = 'none'
+      document.querySelector('#new-p-f-in').value = ''
+      return show()
+    })
+  </script>
 
 </body>
 </html>
