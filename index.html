@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+  <title>mise en place</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css'>
+  <link href="https://fonts.googleapis.com/css?family=PT+Serif|Lato" rel="stylesheet">
+<style>
+body, div, h1, h2, h3 {
+  font-family: 'Lato', serif;
+  font-size: 105%;
+}
+a:link, a:hover, a:active, a:visited {
+  text-decoration: none;
+}
+#board {
+  margin: 0;
+  width: 100%;
+  background-color: #343a40;
+}
+.bb-p {
+  position: fixed;
+  background-color: white;
+  color: black;
+}
+.bb-p-h {
+  font-weight: bolder;
+  margin-bottom: 10px;
+}
+.bb-p-h span {
+  border-bottom: 3px solid #ffd43b;
+}
+.bb-p-a {
+  line-height: 200%;
+  border: none;
+}
+.bb-p-a:focus {
+  border-bottom: 1px solid #ccc;
+}
+#new-p {
+  width: 45px;
+  height: 45px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background-color: #99e9f2;
+}
+#new-p:hover {
+  background-color: #e9ecef;
+}
+#new-p-f {
+  display: none;
+  background-color: white;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 300px;
+  height: 200px;
+  padding: 20px;
+}
+#new-p-f-in {
+  font-size: 150%;
+}
+#new-p-f-btn {
+  background-color: #3b5bdb;
+  color: white;
+  margin-top: 30px;
+}
+#new-p-f-no {
+  background-color: #e03131;
+  color: white;
+  margin-top: 10px;
+}
+#item-action {
+  display: none;
+  background-color: white;
+  min-width: 120px;
+  max-width: 280px;
+  min-height: 90px;
+  max-height: 200px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  font-size: 120%;
+  padding: 15px;
+}
+#item-action button {
+  background-color: #e03131;
+  color: white;
+  margin-top: 20px;
+}
+.bb-p-l-i {
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+  <div id='board'></div>
+  <div class='w3-card' id='new-p'></div>
+
+  <script src='bulletin.js'></script>
+  <script src='lib/draggable-div.js'></script>
+
+  <form class='w3-modal w3-card-4 w3-container' id='new-p-f'>
+    <input class='w3-input' id='new-p-f-in' type='text' autocomplete='off' placeholder='Name of New Note'>
+    <button class='w3-block w3-button w3-hover-black' id='new-p-f-btn' type='submit'><b>New</b></button>
+    <button class='w3-block w3-button w3-hover-black' id='new-p-f-no'><b>Cancel</b></button>
+  </form>
+  <script>
+    document.querySelector('#new-p-f-no').addEventListener('click', (e) => {
+      e.preventDefault()
+      document.querySelector('#new-p-f').style.display = 'none'
+    })
+    document.querySelector('#new-p-f-btn').addEventListener('click', (e) => {
+      e.preventDefault()
+      let v = document.querySelector('#new-p-f-in').value.trim()
+      if (v.length <= 0) return
+      data.push({
+        name: v,
+        top: 0,
+        left: 0,
+        content: [],
+        draggable: true,
+      })
+      document.querySelector('#new-p-f').style.display = 'none'
+      document.querySelector('#new-p-f-in').value = ''
+      return show()
+    })
+  </script>
+
+  <div class='w3-modal w3-card-4' id='item-action'></div>
+
+</body>
+</html>
