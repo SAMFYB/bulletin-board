@@ -25,7 +25,11 @@ let show_callback_draggable = (name) => {
         p.left = parseInt(ele.style.left)
       }
     })
-    ele.style.zIndex += 1
+    data.forEach(p => {
+      let n = p.name
+      let e = document.querySelector(`#${name.replace(/ /g, '-')}-p`)
+      e.style.zIndex = n === name ? 999 : 1
+    })
   })
 }
 
