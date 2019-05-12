@@ -13,6 +13,7 @@ let default_action_a = (name) => {
   if (v.length > 0) {
     append(name, v)
     show()
+    document.querySelector(`#${name.replace(/ /g, '-')}-a`).focus()
   }
 }
 let show_callback_draggable = (name) => {
