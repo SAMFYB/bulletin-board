@@ -47,7 +47,7 @@ let show = () => {
     let j = (content) => {
       let s = []
       for (let i = 0; i < content.length; i++)
-        s.push(`<span id='item-${i}'>${content[i]}</span>`)
+        s.push(`<span class='bb-p-l-i' id='item-${i}'>${content[i]}</span>`)
       return s
     }
     let mk = (name, top, left, width, height, content) => {
