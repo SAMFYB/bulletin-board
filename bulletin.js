@@ -5,6 +5,7 @@ let container = document.querySelector('#board')
 let init_config = {
   default_width: 200,
   default_height: 200,
+  nextZ: 1,
 }
 let init_data = [
 ]
@@ -17,20 +18,30 @@ let default_action_a = (name) => {
   }
 }
 let show_callback_draggable = (name) => {
-  draggable(document.querySelector(`#${name.replace(/ /g, '-')}-p`), () => {
-    let ele = document.querySelector(`#${name.replace(/ /g, '-')}-p`)
-    data.forEach(p => {
-      if (p.name === name) {
-        p.top = parseInt(ele.style.top)
-        p.left = parseInt(ele.style.left)
-      }
-    })
-    data.forEach(p => {
-      let n = p.name
-      let e = document.querySelector(`#${name.replace(/ /g, '-')}-p`)
-      e.style.zIndex = n === name ? 999 : 1
-    })
-  })
+  draggable(
+    document.querySelector(`#${name.replace(/ /g, '-')}-p`),
+    () => { // on_mouse_down
+      let ele = document.querySelector(`#${name.replace(/ /g, '-')}-p`)
+      ele.style.zIndex = config.nextZ;
+      data.forEach(p => {
+        if (p.name === name)
+          p.zIndex = config.nextZ;
+      })
+      config.nextZ += 1;
+      console.log('on_mouse_down with ' + name)
+    },
+    () => { // before_drag
+    },
+    () => { // after_drag
+      let ele = document.querySelector(`#${name.replace(/ /g, '-')}-p`)
+      data.forEach(p => {
+        if (p.name === name) {
+          p.top = parseInt(ele.style.top)
+          p.left = parseInt(ele.style.left)
+        }
+      })
+    }
+  );
 }
 
 // routines ====================================================================
@@ -52,7 +63,8 @@ let show = () => {
     }
     let mk = (name, top, left, width, height, content) => {
       return `<div class='bb-p w3-card-4 w3-padding' id='${name.replace(/ /g, '-')}-p' ` +
-        `style='top: ${top}px; left: ${left}px; min-width: ${width}px; min-height: ${height}px;'>` +
+        `style='top: ${top}px; left: ${left}px; min-width: ${width}px; min-height: ${height}px; ` +
+        `z-index: ${p.zIndex ? p.zIndex : 1}'>` +
         `<div class='bb-p-h'><span>${name}</span></div>${j(content).join('<br>')}` +
         `<form onsubmit="data.forEach(p => { if (p.name === '${name}') default_action_a('${name}') }); return false" ` +
         `class='w3-container' style='padding: 0;'>` +
