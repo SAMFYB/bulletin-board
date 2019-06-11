@@ -70,6 +70,24 @@ function getCookieUser() {
 }
 
 /**
+ * setCookieUserDocId
+ * Sets user document ID for current signed-in user in cookie
+ * @param {string} docId user document ID in Firebase
+ */
+function setCookieUserDocId(docId) {
+  setCookie("docId", docId, EXDAYS);
+}
+
+/**
+ * getCookieUserDocId
+ * Gets signed-in user document ID in Firebase
+ * @return {string} document ID for current signed-in user or ""
+ */
+function getCookieUserDocId() {
+  return getCookie("docId");
+}
+
+/**
  * eraseCookie
  * Erase stored cookie to ""
  */

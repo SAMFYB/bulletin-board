@@ -9,5 +9,7 @@
  * function getCookie({string} cname) = {string}
  * function setCookieUser({string} uid) = undefined
  * function getCookieUser() = {string}
+ * function setCookieUserDocId({string} docId) = undefined
+ * function getCookieUserDocId() = {string}
  * function eraseCookie() = undefined
  */
