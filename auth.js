@@ -92,5 +92,12 @@ function getCookieUserDocId() {
  * Erase stored cookie to ""
  */
 function eraseCookie() {
-  document.cookie = "";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == " ") c = c.substring(1);
+    const key = c.split('=')[0];
+    document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 UTC`;
+  }
 }
