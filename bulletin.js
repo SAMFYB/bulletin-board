@@ -28,7 +28,6 @@ let show_callback_draggable = (name) => {
           p.zIndex = config.nextZ;
       })
       config.nextZ += 1;
-      console.log('on_mouse_down with ' + name)
     },
     () => { // before_drag
     },
