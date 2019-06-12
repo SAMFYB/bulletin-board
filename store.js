@@ -28,6 +28,19 @@ async function getScreenData(userDocId, screenId) {
   return snapshot.data();
 }
 
+// return {object} format
+// [
+//        {
+//            cardId: {string},
+//            cardData: { ... },
+//            items: [
+//                        {
+//                            itemId: {string},
+//                            itemData: { ... }
+//                        }
+//                   ]
+//        }
+// ]
 async function getScreenCardsAndItems(userDocId, screenId) {
   const cardsRef = db.collection("users").doc(userDocId).collection("screens").doc(screenId).collection("cards");
   const snapshot = await cardsRef.get();
