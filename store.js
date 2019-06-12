@@ -32,10 +32,10 @@ async function getScreenCardsAndItems(userDocId, screenId) {
   const cardsRef = db.collection("users").doc(userDocId).collection("screens").doc(screenId).collection("cards");
   const snapshot = await cardsRef.get();
   let cards = [];
-  snapshot.forEach(cardDoc => {
+  snapshot.forEach(async cardDoc => {
     const cardId = cardDoc.id;
     const cardData = cardDoc.data();
-    const itemsSnapshot = await cardsRef.doc(cardId).collection("items");
+    const itemsSnapshot = await cardsRef.doc(cardId).collection("items").get();
     let items = [];
     itemsSnapshot.forEach(itemDoc => {
       items.push({
