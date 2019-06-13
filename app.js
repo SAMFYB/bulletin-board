@@ -7,10 +7,10 @@ const config = {
     padding: "5px 15px",
   },
   itemStyles: {
-    margin: "5px 0",
+    margin: "0",
   },
   cardNameStyles: {
-    margin: "5px 0 10px",
+    margin: "5px 0 15px",
     fontWeight: "bold",
   },
 };
