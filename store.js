@@ -44,23 +44,27 @@ async function getScreenData(userDocId, screenId) {
 async function getScreenCardsAndItems(userDocId, screenId) {
   const cardsRef = db.collection("users").doc(userDocId).collection("screens").doc(screenId).collection("cards");
   const snapshot = await cardsRef.get();
-  let cards = [];
+  let promiseArray = [];
   snapshot.forEach(async cardDoc => {
-    const cardId = cardDoc.id;
-    const cardData = cardDoc.data();
-    const itemsSnapshot = await cardsRef.doc(cardId).collection("items").get();
-    let items = [];
-    itemsSnapshot.forEach(itemDoc => {
-      items.push({
-        itemId: itemDoc.id,
-        itemData: itemDoc.data()
-      });
-    });
-    cards.push({
-      cardId,
-      cardData,
-      items
+    promiseArray.push(getCardItems(cardsRef, cardDoc));
+  });
+  return await Promise.all(promiseArray);
+}
+
+async function getCardItems(cardsRef, cardDoc) {
+  const cardId = cardDoc.id;
+  const cardData = cardDoc.data();
+  const itemsSnapshot = await cardsRef.doc(cardId).collection("items").get();
+  let items = [];
+  itemsSnapshot.forEach(itemDoc => {
+    items.push({
+      itemId: itemDoc.id,
+      itemData: itemDoc.data()
     });
   });
-  return cards;
+  return {
+    cardId,
+    cardData,
+    items
+  };
 }
