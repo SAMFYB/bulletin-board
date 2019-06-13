@@ -3,7 +3,7 @@ const container = document.querySelector("#onscreen-container");
 const config = {
   cardStyles: {
     minWidth: "200px",
-    minHeight: "200px",
+    minHeight: "160px",
     padding: "5px 15px",
   },
   itemStyles: {
