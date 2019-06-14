@@ -136,70 +136,76 @@ container.style.left = 0;
 
 firebase.auth().onAuthStateChanged(async function(user) {
   if (user) {
-    const uid = user.uid;
-    const userDocId = await getUserDocId(uid);
-    const userData = await getUserData(userDocId);
-    const { name, username, onscreen } = userData;
-    const screenData = await getScreenData(userDocId, onscreen);
-    const { screenName, colorbg, cardcolorbg, cardcolorfg } = screenData;
-    container.style.backgroundColor = colorbg;
-
-    const cardsAndItems = await getScreenCardsAndItems(userDocId, onscreen);
-    writeContainer(cardsAndItems.map(mkCardHTML).concat([
-      buttonNewCardHTML,
-      buttonChangeScreenHTML,
-    ]));
-
-    // styles
-    for (const card of cardsAndItems) {
-      const { cardId, cardData, items } = card;
-      const { name, top, left } = cardData;
-      const cardElement = document.querySelector(`#${mkCardElementId(cardId)}`);
-
-      // card styles
-      cardElement.style.position = "fixed";
-      cardElement.style.top = top + "px";
-      cardElement.style.left = left + "px";
-      cardElement.style.backgroundColor = cardcolorbg;
-      cardElement.style.color = cardcolorfg;
-      Object.assign(cardElement.style, config.cardStyles);
-
-      const cardNameElement = document.querySelector(`#${mkCardNameElementId(cardId)}`);
-      Object.assign(cardNameElement.style, config.cardNameStyles);
-
-      const cardButtonsContainerId = mkCardButtonsContainerId(cardId);
-      const cardButtonsContainer = document.querySelector(`#${cardButtonsContainerId}`);
-      Object.assign(cardButtonsContainer.style, config.cardButtonsContainerStyles);
-      const cardButtonNewItem = document.querySelector(`#${cardButtonsContainerId} .button-new-item`);
-      const cardButtonDeleteCard = document.querySelector(`#${cardButtonsContainerId} .button-delete-card`);
-      Object.assign(cardButtonNewItem.style, config.cardButtonNewItemStyles);
-      Object.assign(cardButtonDeleteCard.style, config.cardButtonDeleteCardStyles);
-
-      // items styles
-      for (const item of items) {
-        const { itemId } = item;
-        const itemElement = document.querySelector(`#${mkItemElementId(cardId, itemId)}`);
-        Object.assign(itemElement.style, config.itemStyles);
-      }
-    }
-
-    // screen buttons
-    const buttonNewCardElement = document.querySelector(`#${buttonNewCardId}`);
-    const buttonChangeScreenElement = document.querySelector(`#${buttonChangeScreenId}`);
-    Object.assign(buttonNewCardElement.style, config.buttonNewCardStyles);
-    Object.assign(buttonChangeScreenElement.style, config.buttonChangeScreenStyles);
-
-    // attach events
-    for (const card of cardsAndItems) {
-      const { cardId } = card;
-      const cardElement = document.querySelector(`#${mkCardElementId(cardId)}`);
-      draggable(cardElement, cardId => {
-        const ele = document.querySelector(`#${mkCardElementId(cardId)}`);
-        const { top, left } = ele.style; // new position
-        console.log(`${top},${left}`); // TODO update Firebase position
-      }, cardId);
-    }
+    await app(user);
   } else {
     console.log("User Not Signed In");
   }
 });
+
+//------------------------------------------------------------------------------
+
+async function app(user) {
+  const uid = user.uid;
+  const userDocId = await getUserDocId(uid);
+  const userData = await getUserData(userDocId);
+  const { name, username, onscreen } = userData;
+  const screenData = await getScreenData(userDocId, onscreen);
+  const { screenName, colorbg, cardcolorbg, cardcolorfg } = screenData;
+  container.style.backgroundColor = colorbg;
+
+  const cardsAndItems = await getScreenCardsAndItems(userDocId, onscreen);
+  writeContainer(cardsAndItems.map(mkCardHTML).concat([
+    buttonNewCardHTML,
+    buttonChangeScreenHTML,
+  ]));
+
+  // styles
+  for (const card of cardsAndItems) {
+    const { cardId, cardData, items } = card;
+    const { name, top, left } = cardData;
+    const cardElement = document.querySelector(`#${mkCardElementId(cardId)}`);
+
+    // card styles
+    cardElement.style.position = "fixed";
+    cardElement.style.top = top + "px";
+    cardElement.style.left = left + "px";
+    cardElement.style.backgroundColor = cardcolorbg;
+    cardElement.style.color = cardcolorfg;
+    Object.assign(cardElement.style, config.cardStyles);
+
+    const cardNameElement = document.querySelector(`#${mkCardNameElementId(cardId)}`);
+    Object.assign(cardNameElement.style, config.cardNameStyles);
+
+    const cardButtonsContainerId = mkCardButtonsContainerId(cardId);
+    const cardButtonsContainer = document.querySelector(`#${cardButtonsContainerId}`);
+    Object.assign(cardButtonsContainer.style, config.cardButtonsContainerStyles);
+    const cardButtonNewItem = document.querySelector(`#${cardButtonsContainerId} .button-new-item`);
+    const cardButtonDeleteCard = document.querySelector(`#${cardButtonsContainerId} .button-delete-card`);
+    Object.assign(cardButtonNewItem.style, config.cardButtonNewItemStyles);
+    Object.assign(cardButtonDeleteCard.style, config.cardButtonDeleteCardStyles);
+
+    // items styles
+    for (const item of items) {
+      const { itemId } = item;
+      const itemElement = document.querySelector(`#${mkItemElementId(cardId, itemId)}`);
+      Object.assign(itemElement.style, config.itemStyles);
+    }
+  }
+
+  // screen buttons
+  const buttonNewCardElement = document.querySelector(`#${buttonNewCardId}`);
+  const buttonChangeScreenElement = document.querySelector(`#${buttonChangeScreenId}`);
+  Object.assign(buttonNewCardElement.style, config.buttonNewCardStyles);
+  Object.assign(buttonChangeScreenElement.style, config.buttonChangeScreenStyles);
+
+  // attach events
+  for (const card of cardsAndItems) {
+    const { cardId } = card;
+    const cardElement = document.querySelector(`#${mkCardElementId(cardId)}`);
+    draggable(cardElement, cardId => {
+      const ele = document.querySelector(`#${mkCardElementId(cardId)}`);
+      const { top, left } = ele.style; // new position
+      console.log(`${top},${left}`); // TODO update Firebase position
+    }, cardId);
+  }
+}
