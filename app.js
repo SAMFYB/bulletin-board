@@ -185,6 +185,13 @@ firebase.auth().onAuthStateChanged(async function(user) {
     const buttonChangeScreenElement = document.querySelector(`#${buttonChangeScreenId}`);
     Object.assign(buttonNewCardElement.style, config.buttonNewCardStyles);
     Object.assign(buttonChangeScreenElement.style, config.buttonChangeScreenStyles);
+
+    // attach events
+    for (const card of cardsAndItems) {
+      const { cardId } = card;
+      const cardElement = document.querySelector(`#${mkCardElementId(cardId)}`);
+      draggable(cardElement);
+    }
   } else {
     console.log("User Not Signed In");
   }
