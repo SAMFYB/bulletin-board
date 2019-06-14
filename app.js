@@ -193,7 +193,11 @@ firebase.auth().onAuthStateChanged(async function(user) {
     for (const card of cardsAndItems) {
       const { cardId } = card;
       const cardElement = document.querySelector(`#${mkCardElementId(cardId)}`);
-      draggable(cardElement);
+      draggable(cardElement, cardId => {
+        const ele = document.querySelector(`#${mkCardElementId(cardId)}`);
+        const { top, left } = ele.style; // new position
+        console.log(`${top},${left}`); // TODO update Firebase position
+      }, cardId);
     }
   } else {
     console.log("User Not Signed In");
