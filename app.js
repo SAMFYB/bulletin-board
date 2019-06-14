@@ -39,7 +39,36 @@ const config = {
     backgroundColor: "#ffa8a8",
     cursor: "pointer",
   },
+  buttonNewCardStyles: {
+    position: "fixed",
+    height: "50px",
+    width: "50px",
+    top: "10px",
+    right: "10px",
+    backgroundColor: "#c0eb75",
+    textAlign: "center",
+    lineHeight: "50px",
+    cursor: "pointer",
+    fontSize: "120%",
+  },
+  buttonChangeScreenStyles: {
+    position: "fixed",
+    height: "50px",
+    width: "50px",
+    top: "70px",
+    right: "10px",
+    backgroundColor: "#ffc078",
+    textAlign: "center",
+    lineHeight: "50px",
+    cursor: "pointer",
+    fontSize: "120%",
+  },
 };
+
+const buttonNewCardId = "button-new-card";
+const buttonChangeScreenId = "button-change-screen";
+const buttonNewCardHTML = `<div id=${buttonNewCardId}>AC</div>`;
+const buttonChangeScreenHTML = `<div id=${buttonChangeScreenId}>CS</div>`;
 
 function mkCardElementId(cardId) {
   return `card-${cardId}`;
@@ -113,7 +142,10 @@ firebase.auth().onAuthStateChanged(async function(user) {
     container.style.backgroundColor = colorbg;
 
     const cardsAndItems = await getScreenCardsAndItems(userDocId, onscreen);
-    writeContainer(cardsAndItems.map(mkCardHTML));
+    writeContainer(cardsAndItems.map(mkCardHTML).concat([
+      buttonNewCardHTML,
+      buttonChangeScreenHTML,
+    ]));
 
     // styles
     for (const card of cardsAndItems) {
@@ -147,6 +179,12 @@ firebase.auth().onAuthStateChanged(async function(user) {
         Object.assign(itemElement.style, config.itemStyles);
       }
     }
+
+    // screen buttons
+    const buttonNewCardElement = document.querySelector(`#${buttonNewCardId}`);
+    const buttonChangeScreenElement = document.querySelector(`#${buttonChangeScreenId}`);
+    Object.assign(buttonNewCardElement.style, config.buttonNewCardStyles);
+    Object.assign(buttonChangeScreenElement.style, config.buttonChangeScreenStyles);
   } else {
     console.log("User Not Signed In");
   }
