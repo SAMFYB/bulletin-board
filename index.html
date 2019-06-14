@@ -12,6 +12,35 @@ html, body, div {
   </head>
   <body>
     <div id="onscreen-container"></div>
+    <div id="new-item-modal" class="w3-modal">
+      <div class="w3-modal-content" style="width: 320px;">
+        <header
+          class="w3-container"
+          id="new-item-modal-header"
+          style="border-bottom: 5px solid #c0eb75;">
+          <div
+            class="w3-container"
+            style="font-size: 120%; margin: 15px 0; font-weight: bold;">Add&nbsp;New&nbsp;Item</div>
+        </header>
+        <div class="w3-container" id="new-item-modal-content"></div>
+        <footer
+          class="w3-container"
+          id="new-item-modal-footer"
+          style="width: 100%; margin: 0; padding: 0;">
+<div
+  id="new-item-modal-button-yes"
+  style="display: inline-block; width: 145px; text-align: center; margin: 10px 5px 10px 8px; background-color: #c0eb75;">YES</div>
+<div
+  id="new-item-modal-button-no"
+  style="display: inline-block; width: 145px; text-align: center; margin: 10px 8px 10px 5px; background-color: #ffa8a8;">NO</div>
+          <script>
+            document.querySelector("#new-item-modal-button-no").addEventListener("click", e => {
+              document.querySelector("#new-item-modal").style.display = "none";
+            });
+          </script>
+        </footer>
+      </div>
+    </div>
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
     <!-- Add Firebase products that you want to use -->
