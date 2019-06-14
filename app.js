@@ -13,6 +13,32 @@ const config = {
     margin: "5px 0 15px",
     fontWeight: "bold",
   },
+  cardButtonsContainerStyles: {
+    position: "absolute",
+    left: "0",
+    bottom: "0",
+    margin: "0",
+    padding: "0",
+    width: "100%",
+  },
+  cardButtonNewItemStyles: {
+    display: "inline-block",
+    width: "48%",
+    textAlign: "center",
+    margin: "0 2% 0 0",
+    padding: "5px 0",
+    backgroundColor: "#c0eb75",
+    cursor: "pointer",
+  },
+  cardButtonDeleteCardStyles: {
+    display: "inline-block",
+    width: "48%",
+    textAlign: "center",
+    margin: "0 0 0 2%",
+    padding: "5px 0",
+    backgroundColor: "#ffa8a8",
+    cursor: "pointer",
+  },
 };
 
 function mkCardElementId(cardId) {
@@ -27,10 +53,21 @@ function mkCardNameElementId(cardId) {
   return `card-${cardId}-name`;
 }
 
+function mkCardButtonsContainerId(cardId) {
+  return `card-buttons-${cardId}`;
+}
+
 function mkItemHTML(cardId, item) {
   const { itemId } = item;
   const { value } = item.itemData;
   return `<p id="${mkItemElementId(cardId, itemId)}">${value}</p>`;
+}
+
+function mkCardButtonsHTML(cardId) {
+  return `<div id="${mkCardButtonsContainerId(cardId)}">` +
+    '<div class="button-new-item">ADD</div>' +
+    '<div class="button-delete-card">DEL</div>' +
+    '</div>';
 }
 
 function mkCardHTML(card) {
@@ -43,6 +80,7 @@ function mkCardHTML(card) {
   for (let item of items) {
     cardHTML += mkItemHTML(cardId, item);
   }
+  cardHTML += mkCardButtonsHTML(cardId);
   cardHTML += "</div>";
   return cardHTML;
 }
@@ -93,6 +131,14 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
       const cardNameElement = document.querySelector(`#${mkCardNameElementId(cardId)}`);
       Object.assign(cardNameElement.style, config.cardNameStyles);
+
+      const cardButtonsContainerId = mkCardButtonsContainerId(cardId);
+      const cardButtonsContainer = document.querySelector(`#${cardButtonsContainerId}`);
+      Object.assign(cardButtonsContainer.style, config.cardButtonsContainerStyles);
+      const cardButtonNewItem = document.querySelector(`#${cardButtonsContainerId} .button-new-item`);
+      const cardButtonDeleteCard = document.querySelector(`#${cardButtonsContainerId} .button-delete-card`);
+      Object.assign(cardButtonNewItem.style, config.cardButtonNewItemStyles);
+      Object.assign(cardButtonDeleteCard.style, config.cardButtonDeleteCardStyles);
 
       // items styles
       for (const item of items) {
