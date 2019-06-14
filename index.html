@@ -29,10 +29,14 @@ html, body, div {
           style="width: 100%; margin: 0; padding: 0;">
 <div
   id="new-item-modal-button-yes"
-  style="display: inline-block; width: 145px; text-align: center; margin: 10px 5px 10px 8px; background-color: #c0eb75;">YES</div>
+  style="display: inline-block; width: 145px; text-align: center;
+                                margin: 10px 5px 10px 8px; background-color: #c0eb75;
+                                padding: 10px 0">YES</div>
 <div
   id="new-item-modal-button-no"
-  style="display: inline-block; width: 145px; text-align: center; margin: 10px 8px 10px 5px; background-color: #ffa8a8;">NO</div>
+  style="display: inline-block; width: 145px; text-align: center;
+                                margin: 10px 8px 10px 5px; background-color: #ffa8a8;
+                                padding: 10px 0">NO</div>
           <script>
             document.querySelector("#new-item-modal-button-no").addEventListener("click", e => {
               document.querySelector("#new-item-modal").style.display = "none";
