@@ -151,5 +151,26 @@ async function app(user) {
       },
       cardId
     );
+
+    const buttonNewItemElement = document.querySelector(`#${mkCardElementId(cardId)} .button-new-item`);
+    buttonNewItemElement.addEventListener("click", e => {
+      const newItemModalElement = document.querySelector("#new-item-modal");
+      const newItemParentCardElement = document.querySelector("#new-item-parent-card");
+      const newItemCardIdElement = document.querySelector("#new-item-cardId");
+      const newItemModalButtonYes = document.querySelector("#new-item-modal-button-yes");
+      newItemParentCardElement.innerHTML = card.cardData.name;
+      newItemCardIdElement.value = cardId;
+      newItemModalElement.style.display = "block";
+      newItemModalButtonYes.addEventListener("click", e => {
+        handleNewItem();
+      });
+    });
   }
+}
+
+function handleNewItem() {
+  const newItemCardId = document.querySelector("#new-item-cardId").value;
+  const newItemValue = document.querySelector("#new-item-modal-input").value;
+  console.log(newItemCardId);
+  console.log(newItemValue);
 }
