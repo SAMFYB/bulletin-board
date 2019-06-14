@@ -5,6 +5,7 @@ const config = {
     minWidth: "200px",
     minHeight: "160px",
     padding: "5px 15px",
+    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
   },
   itemStyles: {
     margin: "0",
@@ -50,6 +51,7 @@ const config = {
     lineHeight: "50px",
     cursor: "pointer",
     fontSize: "120%",
+    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
   },
   buttonChangeScreenStyles: {
     position: "fixed",
@@ -62,6 +64,7 @@ const config = {
     lineHeight: "50px",
     cursor: "pointer",
     fontSize: "120%",
+    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
   },
 };
 
