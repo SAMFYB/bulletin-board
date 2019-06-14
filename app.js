@@ -66,6 +66,7 @@ const config = {
     fontSize: "120%",
     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
   },
+  nextz: 42, // should be overwritten in app routine
 };
 
 const buttonNewCardId = "button-new-card";
@@ -162,16 +163,18 @@ async function app(user) {
   // styles
   for (const card of cardsAndItems) {
     const { cardId, cardData, items } = card;
-    const { name, top, left } = cardData;
+    const { name, top, left, z } = cardData;
     const cardElement = document.querySelector(`#${mkCardElementId(cardId)}`);
 
     // card styles
     cardElement.style.position = "fixed";
-    cardElement.style.top = top + "px";
-    cardElement.style.left = left + "px";
+    cardElement.style.top = top;
+    cardElement.style.left = left;
     cardElement.style.backgroundColor = cardcolorbg;
     cardElement.style.color = cardcolorfg;
     Object.assign(cardElement.style, config.cardStyles);
+    cardElement.style.zIndex = z;
+    if (config.nextz <= z) config.nextz = parseInt(z) + 1;
 
     const cardNameElement = document.querySelector(`#${mkCardNameElementId(cardId)}`);
     Object.assign(cardNameElement.style, config.cardNameStyles);
@@ -202,10 +205,20 @@ async function app(user) {
   for (const card of cardsAndItems) {
     const { cardId } = card;
     const cardElement = document.querySelector(`#${mkCardElementId(cardId)}`);
-    draggable(cardElement, cardId => {
-      const ele = document.querySelector(`#${mkCardElementId(cardId)}`);
-      const { top, left } = ele.style; // new position
-      console.log(`${top},${left}`); // TODO update Firebase position
-    }, cardId);
+    draggable(
+      cardElement,
+      cardId => {
+        const ele = document.querySelector(`#${mkCardElementId(cardId)}`);
+        ele.style.zIndex = config.nextz;
+        config.nextz += 1;
+      },
+      cardId,
+      cardId => {
+        const ele = document.querySelector(`#${mkCardElementId(cardId)}`);
+        const { top, left, zIndex } = ele.style; // new position
+        setCardNewPosition(userDocId, onscreen, cardId, { top, left, z: parseInt(zIndex) });
+      },
+      cardId
+    );
   }
 }

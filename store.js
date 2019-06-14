@@ -68,3 +68,14 @@ async function getCardItems(cardsRef, cardDoc) {
     items
   };
 }
+
+async function setCardNewPosition(userDocId, screenId, cardId, payload) {
+  const ref = db
+    .collection("users")
+    .doc(userDocId)
+    .collection("screens")
+    .doc(screenId)
+    .collection("cards")
+    .doc(cardId);
+  await ref.update(payload);
+}
