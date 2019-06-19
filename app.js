@@ -82,7 +82,7 @@ async function app(user) {
   const userData = await getUserData(userDocId);
   const { name, username, onscreen } = userData;
   const screenData = await getScreenData(userDocId, onscreen);
-  const { screenName, colorbg, cardcolorbg, cardcolorfg } = screenData;
+  const { colorbg, cardcolorbg, cardcolorfg } = screenData;
   container.style.backgroundColor = colorbg;
 
   const cardsAndItems = await getScreenCardsAndItems(userDocId, onscreen);
@@ -125,7 +125,9 @@ async function app(user) {
       Object.assign(itemElement.style, config.itemStyles);
     }
     const itemElementList = document.querySelectorAll(`#${mkCardElementId(cardId)} .item-value`);
-    itemElementList[itemElementList.length - 1].style.marginBottom = config.lastItemStyles.marginBottom;
+    if (itemElementList.length > 0) {
+      itemElementList[itemElementList.length - 1].style.marginBottom = config.lastItemStyles.marginBottom;
+    }
   }
 
   // screen buttons
@@ -168,12 +170,46 @@ async function app(user) {
       });
     });
   }
+
+  buttonNewCardElement.addEventListener("click", e => {
+    const newCardModalElement = document.querySelector("#new-card-modal");
+    const newCardParentScreenElement = document.querySelector("#new-card-parent-screen");
+    const newCardScreenIdElement = document.querySelector("#new-card-screenId");
+    const newCardModalButtonYes = document.querySelector("#new-card-modal-button-yes");
+    newCardParentScreenElement.innerHTML = screenData.name + " Screen";
+    newCardScreenIdElement.value = onscreen;
+    newCardModalElement.style.display = "block";
+    newCardModalButtonYes.addEventListener("click", e => {
+      handleNewCard(userDocId, onscreen);
+    });
+  });
 }
 
 async function handleNewItem(userDocId, screenId) {
   const cardId = document.querySelector("#new-item-cardId").value;
-  const value = document.querySelector("#new-item-modal-input").value;
+  const value = document.querySelector("#new-item-modal-input").value.trim();
+  if (value.length === 0) {
+    document.querySelector("#new-item-modal").style.display = "none";
+    document.querySelector("#new-item-modal-input").value = "";
+    return;
+  }
   const itemCount = document.querySelectorAll(`#${mkCardElementId(cardId)} .item-value`).length;
   await addCardItem(userDocId, screenId, cardId, { seq: itemCount + 1, value });
+  window.location.reload();
+}
+
+async function handleNewCard(userDocId, screenId) {
+  const name = document.querySelector("#new-card-modal-input").value.trim();
+  if (name.length === 0) {
+    document.querySelector("#new-card-modal").style.display = "none";
+    document.querySelector("#new-card-modal-input").value = "";
+    return;
+  }
+  await addCard(userDocId, screenId, {
+    name,
+    top: "0px",
+    left: "0px",
+    z: config.nextz
+  });
   window.location.reload();
 }

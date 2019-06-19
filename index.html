@@ -12,6 +12,53 @@ html, body, div {
   </head>
   <body>
     <div id="onscreen-container"></div>
+    <!-- Modal Add New Card -->
+    <div id="new-card-modal" class="w3-modal">
+      <div class="w3-modal-content" style="width: 320px;">
+        <header
+          class="w3-container"
+          id="new-card-modal-header"
+          style="border-bottom: 5px solid #c0eb75;">
+          <div
+            class="w3-container"
+            style="font-size: 120%; margin: 15px 0; font-weight: bold;">Add&nbsp;New&nbsp;Card</div>
+        </header>
+        <div class="w3-container" id="new-card-modal-content">
+          <div id="new-card-parent-screen" style="margin: 15px 0;">Screen&nbsp;Name</div>
+          <div><input class="w3-input"
+                      autocomplete="off"
+                      type="text"
+                      placeholder="New Card Name"
+                      id="new-card-modal-input" /></div>
+        </div>
+        <footer
+          class="w3-container"
+          id="new-card-modal-footer"
+          style="width: 100%; margin: 0; padding: 0;">
+<div
+  id="new-card-modal-button-yes"
+  style="display: inline-block; width: 145px; text-align: center;
+                                margin: 10px 5px 10px 8px;
+                                background-color: #c0eb75;
+                                padding: 5px 0;
+                                cursor: pointer;">YES</div>
+<div
+  id="new-card-modal-button-no"
+  style="display: inline-block; width: 145px; text-align: center;
+                                margin: 10px 8px 10px 5px;
+                                background-color: #ffa8a8;
+                                padding: 5px 0;
+                                cursor: pointer;">NO</div>
+          <script>
+            document.querySelector("#new-card-modal-button-no").addEventListener("click", e => {
+              document.querySelector("#new-card-modal").style.display = "none";
+            });
+          </script>
+          <input id="new-card-screenId" type="text" hidden />
+        </footer>
+      </div>
+    </div><!-- Modal Add New Card CLOSE -->
+    <!-- Modal Add New Item -->
     <div id="new-item-modal" class="w3-modal">
       <div class="w3-modal-content" style="width: 320px;">
         <header
@@ -56,7 +103,7 @@ html, body, div {
           <input id="new-item-cardId" type="text" hidden />
         </footer>
       </div>
-    </div>
+    </div><!-- Modal Add New Item CLOSE -->
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
     <!-- Add Firebase products that you want to use -->

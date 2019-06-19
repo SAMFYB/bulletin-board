@@ -93,3 +93,14 @@ async function addCardItem(userDocId, screenId, cardId, payload) {
     .collection("items");
   await ref.add(payload);
 }
+
+// payload must contain keys [name, top, left, z]
+async function addCard(userDocId, screenId, payload) {
+  const ref = db
+    .collection("users")
+    .doc(userDocId)
+    .collection("screens")
+    .doc(screenId)
+    .collection("cards");
+  await ref.add(payload);
+}
