@@ -69,6 +69,7 @@ async function getCardItems(cardsRef, cardDoc) {
   };
 }
 
+// payload may contain keys [top, left, z]
 async function setCardNewPosition(userDocId, screenId, cardId, payload) {
   const ref = db
     .collection("users")
@@ -78,4 +79,17 @@ async function setCardNewPosition(userDocId, screenId, cardId, payload) {
     .collection("cards")
     .doc(cardId);
   await ref.update(payload);
+}
+
+// payload must contain keys [seq, value]
+async function addCardItem(userDocId, screenId, cardId, payload) {
+  const ref = db
+    .collection("users")
+    .doc(userDocId)
+    .collection("screens")
+    .doc(screenId)
+    .collection("cards")
+    .doc(cardId)
+    .collection("items");
+  await ref.add(payload);
 }

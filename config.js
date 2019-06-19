@@ -8,6 +8,9 @@ const config = {
   itemStyles: {
     margin: "0",
   },
+  lastItemStyles: {
+    marginBottom: "50px",
+  },
   cardNameStyles: {
     margin: "5px 0 15px",
     fontWeight: "bold",

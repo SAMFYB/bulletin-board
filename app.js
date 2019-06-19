@@ -24,7 +24,7 @@ function mkCardButtonsContainerId(cardId) {
 function mkItemHTML(cardId, item) {
   const { itemId } = item;
   const { value } = item.itemData;
-  return `<p id="${mkItemElementId(cardId, itemId)}">${value}</p>`;
+  return `<p id="${mkItemElementId(cardId, itemId)}" class="item-value">${value}</p>`;
 }
 
 function mkCardButtonsHTML(cardId) {
@@ -124,6 +124,8 @@ async function app(user) {
       const itemElement = document.querySelector(`#${mkItemElementId(cardId, itemId)}`);
       Object.assign(itemElement.style, config.itemStyles);
     }
+    const itemElementList = document.querySelectorAll(`#${mkCardElementId(cardId)} .item-value`);
+    itemElementList[itemElementList.length - 1].style.marginBottom = config.lastItemStyles.marginBottom;
   }
 
   // screen buttons
@@ -162,15 +164,16 @@ async function app(user) {
       newItemCardIdElement.value = cardId;
       newItemModalElement.style.display = "block";
       newItemModalButtonYes.addEventListener("click", e => {
-        handleNewItem();
+        handleNewItem(userDocId, onscreen);
       });
     });
   }
 }
 
-function handleNewItem() {
-  const newItemCardId = document.querySelector("#new-item-cardId").value;
-  const newItemValue = document.querySelector("#new-item-modal-input").value;
-  console.log(newItemCardId);
-  console.log(newItemValue);
+async function handleNewItem(userDocId, screenId) {
+  const cardId = document.querySelector("#new-item-cardId").value;
+  const value = document.querySelector("#new-item-modal-input").value;
+  const itemCount = document.querySelectorAll(`#${mkCardElementId(cardId)} .item-value`).length;
+  await addCardItem(userDocId, screenId, cardId, { seq: itemCount + 1, value });
+  window.location.reload();
 }
