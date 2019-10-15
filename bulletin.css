@@ -1,0 +1,86 @@
+body, div, h1, h2, h3 {
+  font-family: 'Lato', serif;
+  font-size: 105%;
+}
+a:link, a:hover, a:active, a:visited {
+  text-decoration: none;
+}
+#board {
+  margin: 0;
+  width: 100%;
+  background-color: #343a40;
+}
+.bb-p {
+  position: fixed;
+  background-color: white;
+  color: black;
+}
+.bb-p-h {
+  font-weight: bolder;
+  margin-bottom: 10px;
+}
+.bb-p-h span {
+  border-bottom: 3px solid #ffd43b;
+}
+.bb-p-a {
+  line-height: 200%;
+  border: none;
+}
+.bb-p-a:focus {
+  border-bottom: 1px solid #ccc;
+}
+#new-p {
+  width: 45px;
+  height: 45px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background-color: #99e9f2;
+}
+#new-p:hover {
+  background-color: #e9ecef;
+}
+#new-p-f {
+  display: none;
+  background-color: white;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 300px;
+  height: 200px;
+  padding: 20px;
+}
+#new-p-f-in {
+  font-size: 150%;
+}
+#new-p-f-btn {
+  background-color: #3b5bdb;
+  color: white;
+  margin-top: 30px;
+}
+#new-p-f-no {
+  background-color: #e03131;
+  color: white;
+  margin-top: 10px;
+}
+#item-action {
+  display: none;
+  background-color: white;
+  min-width: 120px;
+  max-width: 280px;
+  min-height: 90px;
+  max-height: 200px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  font-size: 120%;
+  padding: 15px;
+}
+#item-action button {
+  background-color: #e03131;
+  color: white;
+  margin-top: 20px;
+}
+.bb-p-l-i {
+  cursor: pointer;
+}
